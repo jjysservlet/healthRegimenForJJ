@@ -56,6 +56,9 @@ public class MembersUser {
 
 	@Column
 	private String city;
+	
+	@Column
+	private String phone;
 
 	@Column
 	@Enumerated(EnumType.STRING)
@@ -66,6 +69,14 @@ public class MembersUser {
 	
 	@OneToMany(mappedBy = "user")
 	private List<Collection> collections ;
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public List<Collection> getCollections() {
 		return collections;

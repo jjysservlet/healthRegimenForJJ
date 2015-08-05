@@ -16,8 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-        return new ModelAndView("index");
-    }
+	public String index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return "redirect:/management/index";
+	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		return new ModelAndView("management/login", null);
+	}
 }

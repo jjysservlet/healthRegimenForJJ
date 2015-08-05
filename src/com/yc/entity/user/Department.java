@@ -1,6 +1,7 @@
 package com.yc.entity.user;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -33,8 +34,8 @@ public class Department {
 	@Column
 	private String describes; // 描述
 	
-	@OneToMany(mappedBy = "department")
-	private Set<DepartAndPositions> departAndPositions;
+	@Column
+	private Integer level = 1;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "parentLevel")
@@ -42,6 +43,25 @@ public class Department {
 	
 	@OneToMany(mappedBy = "parentLevel",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Department> children = new HashSet<Department>();
+	
+	@OneToMany(mappedBy = "department")
+	private List<Personnel> personnels;
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
 
 	public Department getParentLevel() {
 		return parentLevel;
@@ -67,14 +87,6 @@ public class Department {
 		this.departmentID = departmentID;
 	}
 
-	public String getDepartmentname() {
-		return departmentName;
-	}
-
-	public void setDepartmentname(String departmentname) {
-		this.departmentName = departmentname;
-	}
-
 	public String getDescribes() {
 		return describes;
 	}
@@ -83,12 +95,12 @@ public class Department {
 		this.describes = describes;
 	}
 
-	public Set<DepartAndPositions> getDepartAndPositions() {
-		return departAndPositions;
+	public List<Personnel> getPersonnels() {
+		return personnels;
 	}
 
-	public void setDepartAndPositions(Set<DepartAndPositions> departAndPositions) {
-		this.departAndPositions = departAndPositions;
+	public void setPersonnels(List<Personnel> personnels) {
+		this.personnels = personnels;
 	}
 
 }

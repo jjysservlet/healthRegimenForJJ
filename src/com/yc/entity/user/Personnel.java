@@ -39,8 +39,8 @@ public class Personnel {
 	private String phone;
 	
 	@ManyToOne
-	@JoinColumn(name = "depAndPos_id")
-	private DepartAndPositions departAndPositions;//部门
+	@JoinColumn(name = "department_id")
+	private Department department;//部门
 	
 	@Column
 	private Boolean forbidden = true;//是否禁用
@@ -53,12 +53,12 @@ public class Personnel {
 		return forbidden;
 	}
 
-	public DepartAndPositions getDepartAndPositions() {
-		return departAndPositions;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setDepartAndPositions(DepartAndPositions departAndPositions) {
-		this.departAndPositions = departAndPositions;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public Integer getPersonnelID() {

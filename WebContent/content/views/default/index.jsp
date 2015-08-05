@@ -14,7 +14,7 @@
 %>
 <base href="<%=basePath%>" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>君健养生</title>
+<title>俊健养生</title>
 <meta name="description" content="CSS3 Full Screen Vertical Scroller with jQuery animation fallback" />
 <meta name="viewport" content="width=device-width, user-scalable=no" />
 <script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>

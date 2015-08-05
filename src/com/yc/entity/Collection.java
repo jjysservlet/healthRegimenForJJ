@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.yc.entity.user.MembersUser;
 //收藏
@@ -27,6 +28,18 @@ public class Collection {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private MembersUser user;
+	
+	@OneToOne
+	@JoinColumn(name = "collect_recomm")
+	private Recommendation recommendation;
+
+	public Recommendation getRecommendation() {
+		return recommendation;
+	}
+
+	public void setRecommendation(Recommendation recommendation) {
+		this.recommendation = recommendation;
+	}
 
 	public CollectionType getCollectionType() {
 		return collectionType;

@@ -1,7 +1,11 @@
 package com.yc.controller.user;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.yc.entity.user.Department;
 import com.yc.entity.user.Personnel;
+import com.yc.entity.user.Sex;
+import com.yc.service.IDepartmentService;
 import com.yc.service.IPersonnelService;
 
 @Controller
@@ -31,6 +38,8 @@ public class PersonnelController {
     @Autowired
     IPersonnelService personnelService;
    
+    @Autowired
+    IDepartmentService departmentService;
     
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -57,16 +66,80 @@ public class PersonnelController {
         	}
         }
     }
-    @RequestMapping(value = "regist", method = RequestMethod.GET)
-    public ModelAndView register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	return new ModelAndView("personnel/register", null);
-    }
 
-    @RequestMapping(value = "regist", method = RequestMethod.POST)
-    public String registing(Personnel personnel,HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	personnelService.save(personnel);
-        return "redirect:/login";
-    }
+	@RequestMapping(value = "addPersonnel", method = RequestMethod.GET)
+	public ModelAndView addPersonnel(Integer id,String mathed,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		Personnel personnels = (Personnel)request.getSession().getAttribute("loginPersonnle");
+		Department department = personnels.getDepartment();
+		Set<Department> departmentList = null;
+		if(department != null){
+			departmentList = department.getChildren();
+			if(departmentList == null){
+				departmentList = new HashSet<Department>();
+			}
+			departmentList.add(department);
+		}
+ 		if (mathed.equals("add")) {		
+			if (id != null) {
+				mode.put("id", id);
+				mode.put("mathed", "add");
+				mode.put("page", "personnel");	
+				mode.put("departmentlist", departmentList);
+				return new ModelAndView("personnel/addPersonnel",mode);
+			}else{
+				mode.put("mathed", "add");
+				mode.put("page", "personnel");	
+				mode.put("departmentlist", departmentList);
+				return new ModelAndView("personnel/addPersonnel",mode);
+			}
+		}else{
+			Personnel personnel = personnelService.findById(id);
+			mode.put("personnel", personnel);
+			mode.put("mathed", "update");
+			mode.put("page", "personnel");
+			mode.put("departmentlist", departmentList);
+			return  new ModelAndView("personnel/addPersonnel",mode);
+		}
+	}
+
+	@RequestMapping(value = "addPersonnelList", method = RequestMethod.POST)
+	public String addPersonnelList(Integer id,String loginName, String password, String sex, String userName,Integer position_id, 
+			Integer department_id,String phone, String email, String mathed,String page,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Sex sex1 = null;
+		if (sex != null)
+		{
+			if (sex.equals("female"))
+				sex1 = Sex.Female;
+			else if ( sex.equals("male") )
+				sex1 = Sex.Male;
+		}
+		
+		if (mathed.equals("add")) {
+			if (page.equals("personnel")) {
+				Department department = departmentService.findById(department_id);
+				Personnel personnel = new Personnel();
+				personnel.setLoginName(loginName);
+				personnel.setPassword(password);
+				personnel.setUserName(userName);
+				personnel.setSex(sex1);
+				personnel.setPhone(phone);
+				personnel.setEmail(email);
+				personnel.setDepartment(department);
+				personnelService.save(personnel);
+			}
+		}else{
+			Department department = departmentService.findById(department_id);
+			Personnel personnel = personnelService.findById(id);
+			personnel.setPhone(phone);
+			personnel.setEmail(email);
+			personnel.setDepartment(department);
+			personnelService.update(personnel);	
+		}
+		return "redirect:/management/personnel";
+	}
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -81,13 +154,34 @@ public class PersonnelController {
     	mode.put("personel", request.getSession().getAttribute("loginPersonnle"));
     	return new ModelAndView("Personnle/addPersonnle",mode);
     }
-    
+    @RequestMapping(value = "personnel", method = RequestMethod.GET)
+	public ModelAndView getAllPersonnel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModelMap mode = new ModelMap();
+		List<Personnel> personnelList = new ArrayList<Personnel>();
+		Personnel personnel = (Personnel)request.getSession().getAttribute("loginPersonnle");
+		Department department = personnel.getDepartment();
+		Set<Department> departmentList = null;
+		if(department != null){
+			departmentList = department.getChildren();
+			if(departmentList == null){
+				departmentList = new HashSet<Department>();
+			}
+			departmentList.add(department);
+		}
+		for (Department departments : departmentList) {
+			personnelList.addAll(departments.getPersonnels());
+		}
+		mode.put("departmentlist", departmentList);
+		mode.put("personnellist", personnelList);
+
+		return new ModelAndView("personnel/personnel", mode);
+	}
     @RequestMapping(value = "userList", method = RequestMethod.GET)
 	public ModelAndView userList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Personnel> list = personnelService.getAll();
 		ModelMap mode = new ModelMap();
 		mode.put("list", list);
-		return new ModelAndView("management/userList", mode);
+		return new ModelAndView("personnel/userList", mode);
 	}
 
 	@RequestMapping(value = "updateUser", method = RequestMethod.GET)
@@ -95,7 +189,7 @@ public class PersonnelController {
 		Personnel personnel = personnelService.findById(id);
 		ModelMap mode = new ModelMap();
 		mode.put("personnel", personnel);
-		return new ModelAndView("management/updateUser", mode);
+		return new ModelAndView("personnel/updateUser", mode);
 	}
 
 	@RequestMapping(value = "updateUser", method = RequestMethod.POST)
