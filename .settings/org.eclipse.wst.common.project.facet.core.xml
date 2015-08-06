@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
+<<<<<<< HEAD
   <runtime name="Apache Tomcat v7.0"/>
   <fixed facet="jst.web"/>
   <fixed facet="java"/>
   <fixed facet="wst.jsdt.web"/>
+=======
+  <fixed facet="wst.jsdt.web"/>
+  <fixed facet="java"/>
+  <fixed facet="jst.web"/>
+>>>>>>> branch 'master' of https://github.com/jjysservlet/healthRegimenForJJ.git
   <installed facet="java" version="1.7"/>
   <installed facet="jst.web" version="3.0"/>
   <installed facet="wst.jsdt.web" version="1.0"/>
