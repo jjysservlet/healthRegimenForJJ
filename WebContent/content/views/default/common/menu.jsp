@@ -28,15 +28,6 @@
 				<div class="panel-body">
 					<a href="management/department">组织机构</a>
 				</div>
-				<div class="panel-body">
-					<a href="management/position">职位角色</a>
-				</div>
-				<div class="panel-body">
-					<a href="management/deparDivide">机构角色分配</a>
-				</div>
-				<div class="panel-body">
-					<a href="management/posDivide">角色员工分配</a>
-				</div>
 			</div>
 		</div>
 		<div class="panel panel-default">

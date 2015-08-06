@@ -99,8 +99,7 @@
 								<tr>
 									<th>用户名</th>
 									<th>性别</th>
-									<th>职位</th>
-									<th>部门</th>
+									<th>所属机构</th>
 									<th>电话</th>
 									<th>邮件</th>
 									<th>是否禁用</th>
@@ -121,8 +120,7 @@
 									<td>${personnel.userName}</td>
 									<td><c:if test="${personnel.sex == 'Female'}">女</c:if> <c:if
 											test="${personnel.sex == 'Male'}">男</c:if></td>
-									<td>${personnel.departAndPositions.positions.positionName}</td>
-									<td>${personnel.departAndPositions.department.departmentName}</td>
+									<td>${personnel.department.departmentName}</td>
 									<td>${personnel.phone}</td>
 									<td>${personnel.email}</td>
 									<td><c:if test="${personnel.forbidden == false}">正常使用</c:if>

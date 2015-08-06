@@ -9,8 +9,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>员工</title>
-<% String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/"; %>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <base href="<%=basePath%>">
 <link href="content/static/css/bootstrap/navbar.css" rel="stylesheet">
 <link href="content/static/css/bootstrap/bootstrap.min.css"
@@ -25,8 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="apple-touch-icon-precomposed"
 	href="content/static/img/apple-touch-icon-57-precomposed.png">
 <link rel="shortcut icon" href="content/static/img/favicon.png">
-<script type="text/javascript"
-	src="content/static/js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="content/static/js/lib/jquery.min.js"></script>
 <script type="text/javascript"
 	src="content/static/js/lib/bootstrap.min.js"></script>
 
@@ -43,117 +46,122 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="content/static/js/datetime/jquery.datetimepicker.js"></script>
 </head>
 <body>
-<br>
-<br>
-<br>
-<br>
-<br>
+	<jsp:include page='../common/header.jsp' />
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="col-md-12 column">
-				<form class="form-horizontal"  id="form" name="form" method="POST">
+			<jsp:include page='../common/menu.jsp' />
+			<div class="col-md-10 column">
+				<form class="form-horizontal" id="form" name="form" method="POST">
+				<div class="form-group">
+				<div class="col-sm-offset-1 col-sm-10" style="text-align: center;"><font color="green" style="font-size: 28px;">机构管理员注册</font></div>
+				</div>
 					<div class="form-group">
 						<c:if test="${mathed == 'add'}">
 							<label for="inputEmail3" class="col-sm-2 control-label">填写登录名</label>
-							<input type="hidden" name="id" value="${id }">	
+							<input type="hidden" name="id" value="${id }">
 							<div class="col-sm-8">
-							<input id="loginName"  class="form-control" name="loginName">${personnel.loginName}
-							</div>	
+								<input id="loginName" class="form-control" name="loginName">${personnel.loginName}
+							</div>
 						</c:if>
 					</div>
 					<div class="form-group">
 						<c:if test="${mathed == 'add'}">
 							<label for="inputEmail3" class="col-sm-2 control-label">填写密码</label>
-							<input type="hidden" name="id" value="${id }">	
+							<input type="hidden" name="id" value="${id }">
 							<div class="col-sm-8">
-							<input id="password" class="form-control" name="password">${personnel.password}
-							</div>								
+								<input id="password" class="form-control" name="password">${personnel.password}
+							</div>
 						</c:if>
 					</div>
 
 					<div class="form-group">
 						<c:if test="${mathed == 'add'}">
 							<label for="inputEmail3" class="col-sm-2 control-label">填写用户名</label>
-							<input type="hidden" name="id" value="${id }">	
+							<input type="hidden" name="id" value="${id }">
 							<div class="col-sm-8">
-							<input id="userName" class="form-control" name="userName">${personnel.userName}
-							</div>								
+								<input id="userName" class="form-control" name="userName">${personnel.userName}
+							</div>
 						</c:if>
 					</div>
 
 					<div class="form-group">
-					<label for="inputEmail3" class="col-sm-2 control-label">性别</label>
+						<label for="inputEmail3" class="col-sm-2 control-label">性别</label>
 						<div class="col-sm-8">
-						<c:if test="${mathed == 'add'}">
-							<select name="sex" id="sex" class="form-control">
-								<option value="null">选择性别
-								<option value="female">女</option>
-								<option value="male">男</option>
-							</select>							
-						</c:if>
+							<c:if test="${mathed == 'add'}">
+								<select name="sex" id="sex" class="form-control">
+									<option value="null">选择性别
+									<option value="female">女</option>
+									<option value="male">男</option>
+								</select>
+							</c:if>
 						</div>
 					</div>
-				
+
 					<div class="form-group">
 						<c:if test="${mathed == 'update'}">
 							<label for="inputEmail3" class="col-sm-2 control-label">修改电话</label>
-							<input type="hidden" name="id" value="${personnel.id }">							
+							<input type="hidden" name="id" value="${personnel.id }">
 						</c:if>
 						<c:if test="${mathed == 'add'}">
 							<label for="inputEmail3" class="col-sm-2 control-label">填写电话</label>
-							<input type="hidden" name="id" value="${id }">															
+							<input type="hidden" name="id" value="${id }">
 						</c:if>
 						<div class="col-sm-8">
-							<input id="phone" class="form-control" name="phone" value="${personnel.phone}">
+							<input id="phone" class="form-control" name="phone"
+								value="${personnel.phone}">
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<c:if test="${mathed == 'update'}">
 							<label for="inputEmail3" class="col-sm-2 control-label">修改邮件</label>
-							<input type="hidden" name="id" value="${personnel.id }">							
+							<input type="hidden" name="id" value="${personnel.id }">
 						</c:if>
 						<c:if test="${mathed == 'add'}">
 							<label for="inputEmail3" class="col-sm-2 control-label">填写邮件</label>
-							<input type="hidden" name="id" value="${id }">															
+							<input type="hidden" name="id" value="${id }">
 						</c:if>
 						<div class="col-sm-8">
-							<input id="email"  class="form-control" name="email" value="${personnel.email}">
+							<input id="email" class="form-control" name="email"
+								value="${personnel.email}">
 						</div>
 					</div>
-						
+
 					<div class="form-group">
-					<label for="inputEmail3" class="col-sm-2 control-label">部门</label>
+						<label for="inputEmail3" class="col-sm-2 control-label">部门</label>
 						<div class="col-sm-8">
-							<select name="department_id" id="department_id" class="form-control" onchange="depChange(this);">
+							<select name="department_id" id="department_id"
+								class="form-control" onchange="depChange(this);">
 								<option value="0">选择部门
-								<c:forEach var="department" items="${departmentlist }">
-								<option value="${department.departmentID }">${department.departmentName }</option>
-								</c:forEach>
+									<c:forEach var="department" items="${departmentlist }">
+										<option value="${department.departmentID }">${department.departmentName }</option>
+									</c:forEach>
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<div class="col-sm-offset-1 col-sm-10" style="text-align: center;">
-							<button type="button" class="btn btn-default" onclick="addPersonnel('${mathed}');">
-							<c:if test="${mathed == 'add'}">加入员工</c:if>
-							<c:if test="${mathed == 'update'}">修改员工</c:if>
+							<button type="button" class="btn btn-default"
+								onclick="addPersonnel('${mathed}');">
+								<c:if test="${mathed == 'add'}">加入员工</c:if>
+								<c:if test="${mathed == 'update'}">修改员工</c:if>
 							</button>
 						</div>
 					</div>
-					</form>
-					</div>
-					</div>
+				</form>
 			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 		window.onunload = refreshParent;
 		function refreshParent() {
 			window.opener.location.reload();
 		}
-		
-		function addPersonnel(obj){
-			document.form.action="management/addPersonnelList?page=${page}&mathed="+obj;
+
+		function addPersonnel(obj) {
+			document.form.action = "management/addPersonnelList?page=${page}&mathed="
+					+ obj;
 			document.form.submit();
 		}
 		function closeAndRefresh() {
@@ -161,14 +169,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			self.close();
 			return true;
 		}
-		function depChange(obj){
+		function depChange(obj) {
 			jQuery.ajax({
 				type : 'GET',
 				contentType : 'application/json',
-				url : 'getShopCategory/getPositions?depID='+obj.value,
+				url : 'getShopCategory/getPositions?depID=' + obj.value,
 				dataType : 'json',
 				success : function(data) {
-					if(data.success == 'true'){
+					if (data.success == 'true') {
 						var pos = document.getElementById('position_id');
 						var numd = pos.options.length;
 						for (i = numd - 1; i >= 0; i--) {
@@ -177,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						var objOption = new Option("选择职位", "0");
 						pos.options[pos.options.length] = objOption;
 						$.each(data.list, function(i, position) {
-							var objOption = new Option(position.positionname ,
+							var objOption = new Option(position.positionname,
 									position.positionid);
 							pos.options[pos.options.length] = objOption;
 						});
@@ -185,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 		}
-		
+
 		function popupwindow(url) {
 			var w = 700;
 			var h = 800;

@@ -56,8 +56,11 @@ public class ManagementPersonnelController {
 	@RequestMapping(value = "addOrUpdateDep", method = RequestMethod.POST)
 	public String addOrUpdateDep(Integer departmentID, String departmentname, String describes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Department department = departmentService.findById(departmentID);
-		Department depart = addDepartment(department, departmentname, describes);
-		return "redirect:/management/getDepartment?departmentId=" + depart.getDepartmentID() + "&page=department";
+		if(department.getLevel()<4){
+			Department depart = addDepartment(department, departmentname, describes);
+		}
+			return "redirect:/management/getDepartment?departmentId=" + departmentID + "&page=department";
+		
 	}
 
 	@RequestMapping(value = "updateDepartmen", method = RequestMethod.POST)
@@ -117,6 +120,7 @@ public class ManagementPersonnelController {
 		department.setParentLevel(parentDepartment);
 		department.setDepartmentName(departmentname);
 		department.setDescribes(describes);
+		department.setLevel(parentDepartment.getLevel()+1);
 		department = departmentService.save(department);
 		if (parentDepartment != null) {
 			parentDepartment.getChildren().add(department);

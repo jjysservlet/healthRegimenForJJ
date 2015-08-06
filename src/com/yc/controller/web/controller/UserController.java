@@ -91,7 +91,7 @@ public class UserController {
 			}
 			return mode;
 		}
-		
+			
 	// 所有收藏
 	@RequestMapping(value = "collection", method = RequestMethod.GET)
 	public ModelAndView getAllCollection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
